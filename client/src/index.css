@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #F2EFE7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .scrollbar-ocean::-webkit-scrollbar {
+    width: 6px;
+  }
+  .scrollbar-ocean::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-ocean::-webkit-scrollbar-thumb {
+    background: #C8DFDB;
+    border-radius: 3px;
+  }
+  .scrollbar-ocean::-webkit-scrollbar-thumb:hover {
+    background: #66A3BF;
+  }
+
+  .msg-enter {
+    animation: msgSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @keyframes msgSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .thinking-dot {
+    animation: thinkingBounce 1.4s infinite ease-in-out both;
+  }
+  .thinking-dot:nth-child(1) { animation-delay: -0.32s; }
+  .thinking-dot:nth-child(2) { animation-delay: -0.16s; }
+  .thinking-dot:nth-child(3) { animation-delay: 0s; }
+
+  @keyframes thinkingBounce {
+    0%, 80%, 100% {
+      transform: scale(0.6);
+      opacity: 0.4;
+    }
+    40% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
