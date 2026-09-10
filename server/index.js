@@ -1,10 +1,9 @@
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, "..", ".env") });
 
 const express = require("express");
 const cors = require("cors");
 const Groq = require("groq-sdk");
-const path = require("path");
-
 const { extractTextFromPDF } = require("./rag/pdfParser");
 const { chunkText } = require("./rag/chunker");
 const { getEmbeddings } = require("./rag/embeddings");
