@@ -36,13 +36,22 @@ export default function Chat() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages }),
       });
-      const data = await res.json();
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
+      }
+      if (!res.ok) {
+        throw new Error(data.error || `Request failed with status ${res.status}`);
+      }
       setMessages([...newMessages, { role: "assistant", content: data.reply }]);
-    } catch {
-      setMessages([
-        ...newMessages,
-        { role: "assistant", content: "I couldn't reach the server. Please check that the backend is running, then try again." },
-      ]);
+    } catch (err) {
+      const serverReachable = err?.message?.startsWith("Request failed");
+      const content = serverReachable
+        ? `Something went wrong: ${err.message}`
+        : "I couldn't reach the server. Please check that the backend is running, then try again.";
+      setMessages([...newMessages, { role: "assistant", content }]);
     } finally {
       setLoading(false);
     }

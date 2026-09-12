@@ -9,7 +9,9 @@ function cosineSimilarity(a, b) {
     normA += a[i] * a[i];
     normB += b[i] * b[i];
   }
-  return dot / (Math.sqrt(normA) * Math.sqrt(normB));
+  const denom = Math.sqrt(normA) * Math.sqrt(normB);
+  if (!denom || !Number.isFinite(denom)) return 0;
+  return dot / denom;
 }
 
 function storeVectors(embeddings, chunks) {

@@ -5,15 +5,25 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
-    "dev": "node server/index.js"
+    "server": "node server/index.js",
+    "client": "npm --prefix client run dev",
+    "dev": "concurrently -n server,client -c blue,green \"npm:server\" \"npm:client\"",
+    "build": "npm --prefix client run build"
+  },
+  "overrides": {
+    "qs": "^6.16.0"
   },
   "dependencies": {
     "@huggingface/transformers": "^4.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-rate-limit": "^8.7.0",
     "groq-sdk": "^0.5.0",
     "pdf-parse": "^1.1.1",
     "pdfjs-dist": "^4.10.38"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
   }
 }
